@@ -44,7 +44,7 @@ def est_dans_intervalle(
         max (int | float): La borne maximale de l'intervalle.
 
     Returns:
-        (bool): Si la valeur est incluse ou non dans l'intevalle.
+        (bool): Si la valeur est incluse ou non dans l'intervalle.
     """
 
     # Si la valeur est inférieure à la valeur minimale
