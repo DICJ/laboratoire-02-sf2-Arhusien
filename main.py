@@ -40,7 +40,7 @@ while execution_en_cours:
                         # Créer l'instance de la classe
                         personnage = Mage(nom_personnage, vie_personnage, attaque_personnage, mana_personnage)
                     case "archer":
-                        dexterite_personnage = utils.convertir_valeur(input("Quelle est la dextérité de l'archer (de 50 à 100) ? ").strip(), int)
+                        dexterite_personnage = utils.convertir_valeur(input("Quelle est la dextérité de l'archer (de 40 à 70) ? ").strip(), int)
 
                         # Créer l'instance de la classe
                         personnage = Archer(nom_personnage, vie_personnage, attaque_personnage, dexterite_personnage)

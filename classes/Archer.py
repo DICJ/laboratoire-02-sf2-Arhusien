@@ -13,7 +13,7 @@ class Archer(Personnage):
     def __init__(self, nom: str, vie: int, attaque: int, dexterite: int):
         super().__init__(nom, vie, attaque)
 
-        self._dexterite = 50
+        self._dexterite = 40
         self.dexterite = dexterite
     
     @property
@@ -26,9 +26,9 @@ class Archer(Personnage):
         if not isinstance(valeur_dexterite, (int, float)):
             raise TypeError("« Dexterite » doit être de type « int ».")
         
-        # Si la nouvelle valeur dextérité n'est pas comprise entre 50 et 100
-        if not utils.est_dans_intervalle(valeur_dexterite, 50, 100):
-            raise ValueError("« Dexterite » doit être compris entre 50 et 100.")
+        # Si la nouvelle valeur dextérité n'est pas comprise entre 40 et 70
+        if not utils.est_dans_intervalle(valeur_dexterite, 40, 70):
+            raise ValueError("« Dexterite » doit être compris entre 40 et 70.")
 
         # Définir la nouvelle valeur dextérité (et convertir en integer)
         self._dexterite = int(valeur_dexterite)
