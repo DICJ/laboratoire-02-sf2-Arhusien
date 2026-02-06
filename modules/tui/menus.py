@@ -3,6 +3,8 @@ from rich import box
 from rich.panel import Panel
 from rich.table import Table
 from rich.console import Console
+from classes.Personnage import Personnage
+from classes.DetailsCombat import DetailsCombat
 
 # Créer une instance de la classe Console
 console = Console()
@@ -131,3 +133,59 @@ def creer_menu(
 
     # Retourner le panneau
     return rendu_menu
+
+def imprimer_accueil() -> None:
+    # Créer le menu
+    menu = creer_menu(
+        titre=("Accueil", "u white"),
+        lst_options=[
+            "Ajouter un personnage à l'arène",
+            "Afficher les personnages de l'arène",
+            "Organiser un combat dans l'arène",
+            "Afficher tous les combats de l'arène",
+            ("Quitter", "red")
+        ],
+        sous_titre="Combat Arena Inc."
+    )
+
+    # Imprimer le menu
+    console.print(menu)
+
+def imprimer_lst_personnages(lst_personnages: list[Personnage]) -> None:
+    # Créer le menu
+    menu = creer_menu(
+        titre=("Personnages de l'arène", "u white"),
+        lst_options=lst_personnages,
+        sous_titre="Combat Arena Inc.",
+        commencer_a_zero=True
+    )
+
+    # Imprimer le menu
+    console.print(menu)
+
+def imprimer_resume_combat(resume_combat: list[str]) -> None:
+    # Créer le menu
+    menu = creer_menu(
+        titre=("Résumé du combat", "u white"),
+        lst_options=resume_combat,
+        sous_titre="Combat Arena Inc.",
+        commencer_a_zero=True,
+        mode_lecture=True
+    )
+
+    # Imprimer le menu
+    console.print(menu)
+
+def imprimer_lst_combats(lst_combats: list[DetailsCombat]) -> None:
+    # Créer le menu
+    menu = creer_menu(
+        titre=("Combats de l'arène", "u white"),
+        lst_options=lst_combats,
+        sous_titre="Combat Arena Inc.",
+        commencer_a_zero=True,
+        mode_lecture=True
+    )
+
+    # Imprimer le menu
+    console.print(menu)
+

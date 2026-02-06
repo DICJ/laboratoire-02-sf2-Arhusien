@@ -65,6 +65,12 @@ class Personnage:
         """
 
         # Retirer le nombre de dégâts à la vie du personnage
-        self.vie -= nb_degats
+        self._vie -= nb_degats
 
-        return self.vie
+        return self._vie
+    
+    def __str__(self):
+        # Récupérer le nom de la classe de l'instance
+        type_personnage = type(self).__name__
+
+        return f"{self.nom} ({type_personnage} / {self.vie} ♥ / {self.attaque} ⚔)"
