@@ -82,7 +82,13 @@ while execution_en_cours:
                         messages.imprimer_erreur("Sélection impossible", "L'un des personnages sélectionné n'existe pas.")
                         # Arrêter cette itération et passer à la suivante
                         continue
-                    
+
+                    # Si les deux indices sont les mêmes
+                    if choix_indice_attaquant == choix_indice_defenseur:
+                        messages.imprimer_erreur("Sélection impossible", "Les deux combattants doivent être des personnages différents.")
+                        # Arrêter cette itération et passer à la suivante
+                        continue
+
                     input("Lancer (Entrer) ")
 
                     # Lancer le combat
