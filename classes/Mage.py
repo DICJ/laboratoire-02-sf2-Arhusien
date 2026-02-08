@@ -62,6 +62,6 @@ class Mage(Personnage):
         """
 
         # Retirer entre 15 et 25 de mana
-        self.mana -= random.randint(15, 25)
+        self._mana -= random.randint(15, 25)
 
-        return self.mana
+        return self._mana
