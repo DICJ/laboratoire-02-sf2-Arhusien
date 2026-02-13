@@ -9,12 +9,12 @@ from fonctions import utils
 arene = Arene()
 
 # Personnages de test
-arene.ajouter_personnage(Guerrier("Thorin", 450, 40, 45))
-arene.ajouter_personnage(Guerrier("Ragnar", 400, 35, 30))
-arene.ajouter_personnage(Mage("Gandalf", 300, 45, 90))
-arene.ajouter_personnage(Mage("Morgana", 280, 50, 80))
-arene.ajouter_personnage(Archer("Legolas", 350, 40, 65))
-arene.ajouter_personnage(Archer("Robin", 320, 38, 55))
+# arene.ajouter_personnage(Guerrier("Thorin", 450, 40, 45))
+# arene.ajouter_personnage(Guerrier("Ragnar", 400, 35, 30))
+# arene.ajouter_personnage(Mage("Gandalf", 300, 45, 90))
+# arene.ajouter_personnage(Mage("Morgana", 280, 50, 80))
+# arene.ajouter_personnage(Archer("Legolas", 350, 40, 65))
+# arene.ajouter_personnage(Archer("Robin", 320, 38, 55))
 
 execution_en_cours = True
 while execution_en_cours:
