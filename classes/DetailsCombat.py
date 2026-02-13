@@ -30,16 +30,19 @@ class DetailsCombat:
         # Définir la nouvelle valeur vainqueur
         self._vainqueur = valeur_vainqueur
 
-    def incrementer_nb_tours(self) -> int:
+    def incrementer_nb_tours(self, nb_tours: int | None = 1) -> int:
         """
         Icrémente de un le nombre de tours du combat.
+
+        Parameters:
+            nb_tours (int, optionel): Le nombre de tours à ajouter au compteur.
 
         Returns:
             (int): Le nouveau nombre de tours du combat.
         """
 
         # Incrémenter de un le nombre de tours
-        self._nb_tours += 1
+        self._nb_tours += nb_tours
 
         return self._nb_tours
 

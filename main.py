@@ -1,11 +1,20 @@
 from classes.Archer import Archer
 from classes.Mage import Mage
 from classes.Guerrier import Guerrier
+from classes.Soldat import Soldat
 from classes.Arene import Arene
 from modules.tui import menus, messages
 from fonctions import utils
 
 arene = Arene()
+
+# Personnages de test
+arene.ajouter_personnage(Guerrier("Thorin", 450, 40, 45))
+arene.ajouter_personnage(Guerrier("Ragnar", 400, 35, 30))
+arene.ajouter_personnage(Mage("Gandalf", 300, 45, 90))
+arene.ajouter_personnage(Mage("Morgana", 280, 50, 80))
+arene.ajouter_personnage(Archer("Legolas", 350, 40, 65))
+arene.ajouter_personnage(Archer("Robin", 320, 38, 55))
 
 execution_en_cours = True
 while execution_en_cours:
@@ -15,8 +24,8 @@ while execution_en_cours:
     match choix_menu_accueil:
         # Si l'option sélectionné est « Ajouter un personnage à l'arène »
         case "1":
-            type_personnage = input("Quel est le type du personnage (Guerrier, Mage ou Archer) ? ").strip()
-            if (type_personnage.lower() not in ["guerrier", "mage", "archer"]):
+            type_personnage = input("Quel est le type du personnage (Guerrier, Mage, Archer ou Soldat) ? ").strip()
+            if (type_personnage.lower() not in ["guerrier", "mage", "archer", "soldat"]):
                 messages.imprimer_erreur("Ajout impossible", "Le type de personnage indiqué est invalide.")
                 # Arrêter cette itération et passer à la suivante
                 continue
@@ -44,6 +53,9 @@ while execution_en_cours:
 
                         # Créer l'instance de la classe
                         personnage = Archer(nom_personnage, vie_personnage, attaque_personnage, dexterite_personnage)
+                    case "soldat":
+                        # Créer l'instance de la classe
+                        personnage = Soldat(nom_personnage, vie_personnage, attaque_personnage)
             # En cas d'erreur (retournée par un setter)
             except:
                 messages.imprimer_erreur("Ajout impossible", "Les caractéristiques indiquées sont invalides.")
@@ -54,8 +66,8 @@ while execution_en_cours:
             arene.ajouter_personnage(personnage)
 
             messages.imprimer_succes(f"{type_personnage.title()} ajouté à l'arène avec succès !")
-        case "2" | "3":
-            lst_personnages = arene.afficher_personnages()
+        case "2" | "3" | "4":
+            lst_personnages = arene.afficher_personnages(choix_menu_accueil == "2")
 
             # Si la liste de personnages est vide
             if len(lst_personnages) <= 0:
@@ -63,7 +75,7 @@ while execution_en_cours:
                 # Arrêter cette itération et passer à la suivante
                 continue
 
-            menus.imprimer_lst_personnages(lst_personnages)
+            menus.imprimer_lst_personnages(lst_personnages, choix_menu_accueil == "2")
             
             match choix_menu_accueil:
                 # Si l'option sélectionné est « Afficher les personnages de l'arène »
@@ -76,8 +88,8 @@ while execution_en_cours:
 
                     # Si l'un des indices sélectionnés n'existe pas dans la liste
                     if not (
-                        utils.est_dans_intervalle(choix_indice_attaquant, min=0, max=(len(lst_personnages) - 1))
-                        and utils.est_dans_intervalle(choix_indice_defenseur, min=0, max=(len(lst_personnages) - 1))
+                        utils.est_dans_intervalle(choix_indice_attaquant, min=0, max=(len(arene.lst_personnages) - 1))
+                        and utils.est_dans_intervalle(choix_indice_defenseur, min=0, max=(len(arene.lst_personnages) - 1))
                     ):
                         messages.imprimer_erreur("Sélection impossible", "L'un des personnages sélectionné n'existe pas.")
                         # Arrêter cette itération et passer à la suivante
@@ -100,8 +112,37 @@ while execution_en_cours:
                     menus.imprimer_resume_combat(resume_combat)
 
                     input("Quitter (Entrer) ")
+                # Si l'option sélectionné est « Soigner un personnage de l'arène »
+                case "4":
+                    choix_indice_personnage = utils.convertir_valeur(input("Quel personnage souhaitez-vous soigner ? ").strip(), int, -1)
+
+                    # Si l'indice sélectionné n'existe pas dans la liste
+                    if not utils.est_dans_intervalle(choix_indice_personnage, min=0, max=(len(arene.lst_personnages) - 1)):
+                        messages.imprimer_erreur("Sélection impossible", "Le personnage sélectionné n'existe pas.")
+                        # Arrêter cette itération et passer à la suivante
+                        continue
+
+                    # Récupérer le personnage dans la liste des personnages de l'arène
+                    personnage = arene.lst_personnages[choix_indice_personnage]
+                    # Soigner le personnage
+                    arene.soigner_personnage(personnage)
+
+                    messages.imprimer_succes(f"{personnage.nom.title()} a été soigné avec succès !")
+        # Si l'option sélectionné est « Nettoyer l'arène »
+        case "5":
+            arene.nettoyer_arene()
+
+            messages.imprimer_succes(f"L'arène a été nettoyée avec succès !")
+        # Si l'option sélectionné est « Organiser une bataille royale »
+        case "6":
+            # Lancer la bataille royale
+            resume_combat = arene.organiser_bataille_royale()
+
+            menus.imprimer_resume_combat(resume_combat)
+
+            input("Quitter (Entrer) ")
         # Si l'option sélectionné est « Afficher tous les combats de l'arène »
-        case "4":
+        case "7":
             lst_combats = arene.afficher_combats()
 
             # Si la liste de combats est vide
@@ -114,7 +155,7 @@ while execution_en_cours:
 
             input("Quitter (Entrer) ")
         # Si l'option sélectionné est « Quitter »
-        case "5":
+        case "9":
             execution_en_cours = False
         case _:
             pass

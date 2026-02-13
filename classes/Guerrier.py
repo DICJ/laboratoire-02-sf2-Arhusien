@@ -1,6 +1,7 @@
 import random
 from fonctions import utils
 from classes.Personnage import Personnage
+from classes.Armure import Armure
 
 class Guerrier(Personnage):
     """
@@ -11,7 +12,12 @@ class Guerrier(Personnage):
     """
 
     def __init__(self, nom: str, vie: int, attaque: int, force: int):
-        super().__init__(nom, vie, attaque)
+        armure = Armure(
+            nom="Armure de plaques",
+            durete=12
+        )
+
+        super().__init__(nom, vie, attaque, armure)
 
         self._force = 1
         self.force = force

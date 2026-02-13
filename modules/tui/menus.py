@@ -5,6 +5,7 @@ from rich.table import Table
 from rich.console import Console
 from classes.Personnage import Personnage
 from classes.DetailsCombat import DetailsCombat
+from classes.Arene import Arene
 
 # Créer une instance de la classe Console
 console = Console()
@@ -80,7 +81,7 @@ def creer_menu(
     nb_options = len(lst_options)
 
     # Cérer une liste vide qui contiendra toutes les options formatées
-    lst_options_texte = []
+    lst_options_txt: list[str] = []
     # Parcourir la liste des options en associant à chaque option sa position dans la liste (tuple)
     for indice_option, option in enumerate(lst_options):
         style_option = ""
@@ -96,7 +97,7 @@ def creer_menu(
         indice_option_texte = "" if mode_lecture else f"[{indice_option + indice_de_depart}] "
 
         # Ajouter l'option dans la liste en la transformant en string et en lui ajoutant son style
-        lst_options_texte.append(f"[{style_option}]{indice_option_texte}{texte_option}[/]" if style_option else f"{indice_option_texte}{texte_option}")
+        lst_options_txt.append(f"[{style_option}]{indice_option_texte}{texte_option}[/]" if style_option else f"{indice_option_texte}{texte_option}")
 
     # Créer une grille 
     # https://rich.readthedocs.io/en/latest/tables.html
@@ -110,7 +111,7 @@ def creer_menu(
         # Récupérer l'indice de fin du lot d'options de la liste
         indice_fin_lot = indice_debut_lot + nb_colonne
         # Récupérer le lot d'options dans la liste
-        lst_options_lot = lst_options_texte[indice_debut_lot:indice_fin_lot]
+        lst_options_lot = lst_options_txt[indice_debut_lot:indice_fin_lot]
 
         # Désassembler la liste d'options du lot et l'intégrer à une rangée
         rendu_options.add_row(
@@ -142,6 +143,9 @@ def imprimer_accueil() -> None:
             "Ajouter un personnage à l'arène",
             "Afficher les personnages de l'arène",
             "Organiser un combat dans l'arène",
+            "Soigner un personnage de l'arène",
+            "Nettoyer l'arène",
+            "Organiser une bataille royale",
             "Afficher tous les combats de l'arène",
             ("Quitter", "red")
         ],
@@ -151,13 +155,14 @@ def imprimer_accueil() -> None:
     # Imprimer le menu
     console.print(menu)
 
-def imprimer_lst_personnages(lst_personnages: list[Personnage]) -> None:
+def imprimer_lst_personnages(lst_personnages: list[Personnage], avec_compte: bool | None = False) -> None:
     # Créer le menu
     menu = creer_menu(
         titre=("Personnages de l'arène", "u white"),
         lst_options=lst_personnages,
         sous_titre="Combat Arena Inc.",
-        commencer_a_zero=True
+        commencer_a_zero=True,
+        mode_lecture=avec_compte
     )
 
     # Imprimer le menu

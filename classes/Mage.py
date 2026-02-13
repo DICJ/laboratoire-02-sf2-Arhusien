@@ -1,6 +1,7 @@
 import random
 from fonctions import utils
 from classes.Personnage import Personnage
+from classes.Armure import Armure
 
 class Mage(Personnage):
     """
@@ -11,10 +12,18 @@ class Mage(Personnage):
     """
 
     def __init__(self, nom: str, vie: int, attaque: int, mana: int):
-        super().__init__(nom, vie, attaque)
+        armure = Armure(
+            nom="Armure magique",
+            durete=7
+        )
+
+        super().__init__(nom, vie, attaque, armure)
 
         self._mana = 0
         self.mana = mana
+
+        # Définir la valeur de mana maximale du mage
+        self._mana_max = int(self._mana)
 
     @property
     def mana(self):
@@ -52,6 +61,19 @@ class Mage(Personnage):
         
         # Retourner le nombre de dégâts de l'attaque (et convertir en integer)
         return int(nb_degats_attaque)
+    
+    def reinitialiser_vie(self) -> tuple[int, int]:
+        """
+        Réinitialise la vie et le niveau de mana du mage à leur valeur de départ.
+
+        Returns:
+            tuple[int, int]: La nouvelle valeur de vie et du mana du mage.
+        """
+
+        self._vie = self._vie_max
+        self._mana = self._mana_max
+
+        return (self._vie, self._mana)
 
     def _diminuer_mana(self):
         """
