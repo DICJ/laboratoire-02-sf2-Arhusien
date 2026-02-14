@@ -37,7 +37,7 @@ class Berserker(Guerrier):
         """
 
         # Calculer le pourcentage inital des points de vie du personnage
-        pourcentage_inital = self._vie / self._vie_max
+        pourcentage_initial = self._vie / self._vie_max
 
         # Récupérer le nombre de dégâts encaissés par l'armure
         durete_armure = self.armure.durete
@@ -55,7 +55,7 @@ class Berserker(Guerrier):
         pourcentage_final = self._vie / self._vie_max
 
         # Si le pourcentage inital est supérieur ou égal à 50% et que le pourcentage final est inférieur à 50%
-        if (pourcentage_inital >= 0.5) and (pourcentage_final < 0.5):
+        if (pourcentage_initial >= 0.5) and (pourcentage_final < 0.5):
             print(f"Le berserker {self.nom} est en FUREUR !")
 
         return self._vie
