@@ -1,4 +1,3 @@
-import random
 from fonctions import utils
 
 class Armure:

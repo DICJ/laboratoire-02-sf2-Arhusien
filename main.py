@@ -2,19 +2,12 @@ from classes.Archer import Archer
 from classes.Mage import Mage
 from classes.Guerrier import Guerrier
 from classes.Soldat import Soldat
+from classes.Berserker import Berserker
 from classes.Arene import Arene
 from modules.tui import menus, messages
 from fonctions import utils
 
 arene = Arene()
-
-# Personnages de test
-# arene.ajouter_personnage(Guerrier("Thorin", 450, 40, 45))
-# arene.ajouter_personnage(Guerrier("Ragnar", 400, 35, 30))
-# arene.ajouter_personnage(Mage("Gandalf", 300, 45, 90))
-# arene.ajouter_personnage(Mage("Morgana", 280, 50, 80))
-# arene.ajouter_personnage(Archer("Legolas", 350, 40, 65))
-# arene.ajouter_personnage(Archer("Robin", 320, 38, 55))
 
 execution_en_cours = True
 while execution_en_cours:
@@ -24,8 +17,8 @@ while execution_en_cours:
     match choix_menu_accueil:
         # Si l'option sélectionné est « Ajouter un personnage à l'arène »
         case "1":
-            type_personnage = input("Quel est le type du personnage (Guerrier, Mage, Archer ou Soldat) ? ").strip()
-            if (type_personnage.lower() not in ["guerrier", "mage", "archer", "soldat"]):
+            type_personnage = input("Quel est le type du personnage (Guerrier, Mage, Archer, Soldat ou Berserker) ? ").strip()
+            if (type_personnage.lower() not in ["guerrier", "mage", "archer", "soldat", "berserker"]):
                 messages.imprimer_erreur("Ajout impossible", "Le type de personnage indiqué est invalide.")
                 # Arrêter cette itération et passer à la suivante
                 continue
@@ -56,6 +49,11 @@ while execution_en_cours:
                     case "soldat":
                         # Créer l'instance de la classe
                         personnage = Soldat(nom_personnage, vie_personnage, attaque_personnage)
+                    case "berserker":
+                        force_personnage = utils.convertir_valeur(input("Quelle est la force du berserker (de 1 à 50) ? ").strip(), int)
+
+                        # Créer l'instance de la classe
+                        personnage = Berserker(nom_personnage, vie_personnage, attaque_personnage, force_personnage)
             # En cas d'erreur (retournée par un setter)
             except:
                 messages.imprimer_erreur("Ajout impossible", "Les caractéristiques indiquées sont invalides.")
