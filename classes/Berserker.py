@@ -55,7 +55,7 @@ class Berserker(Guerrier):
         pourcentage_final = self._vie / self._vie_max
 
         # Si le pourcentage inital est supérieur ou égal à 50% et que le pourcentage final est inférieur à 50%
-        if pourcentage_inital >= 0.5 and pourcentage_final < 0.5:
+        if (pourcentage_inital >= 0.5) and (pourcentage_final < 0.5):
             print(f"Le berserker {self.nom} est en FUREUR !")
 
         return self._vie
