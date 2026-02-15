@@ -70,7 +70,7 @@ class Mage(Personnage):
             tuple[int, int]: La nouvelle valeur de vie et du mana du mage.
         """
 
-        self._vie = self._vie_max
+        super().reinitialiser_vie()
         self._mana = self._mana_max
 
         return (self._vie, self._mana)

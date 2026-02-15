@@ -18,8 +18,8 @@ class Berserker(Guerrier):
             (int): Le nombre de dégâts de l'attaque.
         """
 
-        # Calculer le nombre de dégâts de l'attaque (et convertir en integer)
-        nb_degats_attaque = int(self.attaque + (self.force / 2) + random.randint(-2, 2))
+        # Calculer le nombre de dégâts de l'attaque
+        nb_degats_attaque = super().attaquer()
         # Ajouter 5 dégâts par tranche de 10 points de vie perdus
         nb_degats_attaque += ((self._vie_max - self.vie) // 10) * 5
 
@@ -39,17 +39,7 @@ class Berserker(Guerrier):
         # Calculer le pourcentage inital des points de vie du personnage
         pourcentage_initial = self._vie / self._vie_max
 
-        # Récupérer le nombre de dégâts encaissés par l'armure
-        durete_armure = self.armure.durete
-
-        # Calculer le nombre de dégâts
-        nb_degats -= durete_armure
-        # Si le nombre de dégâts est négatif
-        if nb_degats < 0:
-            nb_degats = 0
-
-        # Retirer le nombre de dégâts à la vie du personnage
-        self._vie -= nb_degats
+        super().subir_degats(nb_degats)
 
         # Calculer le pourcentage final des points de vie du personnage
         pourcentage_final = self._vie / self._vie_max
